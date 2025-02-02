@@ -90,6 +90,9 @@ monster_powers = {
     "Super Hearing": 6
 }
 
+# Q4: define empty list BELT
+belt=[]
+
 # Use a While Loop to get valid input for Hero and Monster's Combat Strength
 i = 0
 
@@ -140,6 +143,17 @@ else:
 if weapons[weaponRoll - 1] != "Fist":
     print("--- Thank goodness you didn't roll the Fist...")
 
+# Q2 : Roll for Monster's Magic Power
+# monster_powers_keys = ["Fire Magic", "Freeze Time", "Super Hearing"]
+monster_powers_keys = monster_powers.keys()
+monster_powers_keys = list(monster_powers_keys)
+monster_powers = random.choice(monster_powers_keys)
+
+# Q3: Update Monster's Combat Strength
+m_combat_strength = min(6, m_combat_strength + monster_powers[monster_powers])
+print(f"Monster got{monster_powers}, increasing their combat strength to {m_combat_strength} ")
+
+
 # Roll for player health points
 input("Roll the dice for your health points (Press enter)")
 health_points = random.choice(diceOptions)
@@ -150,9 +164,49 @@ input("Roll the dice for the monster's health points (Press enter)")
 m_health_points = random.choice(diceOptions)
 print("Player rolled " + str(m_health_points) + " health points for the monster")
 
-# Q3 : Update Monster's Combat Strength
-m_combat_strength = m_combat_strength + monster_powers[monster_power]
-print(m_combat_strength)
+
+# Q5: The player collects loot
+print("you fount the loot")
+input("Roll the dice for your First item (Press enter)")
+# loot_item1 = random.choice(loot_options)
+# loot_options.pop()
+loot_item1_idx = random.choice(list(range(0,5)))
+loot_item1 = loot_options.pop(loot_item1_idx)
+belt.append(loot_item1)
+print(f"you now have {belt} ")
+
+# Q6: The player collects more loot
+print("you fount the loot")
+input("Roll the dice for your Secound item (Press enter)")
+loot_item2_idx = random.choice(list(range(0,5)))
+loot_item2 = loot_options.pop(loot_item2_idx)
+belt.append(loot_item2)
+print(f"you now have {belt} ")
+
+# Q7: organizing the loot belt
+belt.sort()
+print(f"you now have {belt} ")
+
+# Q8: Use the first loot item
+print("You see a monster in the distance! You can use the first item in your belt to help you.")
+
+# Pop the first item from the player's belt
+loot_used = belt.pop(0)
+print(f"You are using: {loot_used}")
+
+
+if loot_used in good_loot_options:
+
+    health_points = min(6, health_points + 2)
+    print(f"Good loot! Your health increased by 2. Your health is now {health_points}.")
+elif loot_used in bad_loot_options:
+
+    health_points = max(0, health_points - 2)
+    print(f"Bad loot! Your health decreased by 2. Your health is now {health_points}.")
+else:
+
+    print(f"The item you used doesn't seem to have any effect. Your health remains {health_points}.")
+
 
 input("Analyze the roll (Press enter)")
 # Compare Player vs Monster's strength
