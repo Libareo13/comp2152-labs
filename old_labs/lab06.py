@@ -7,7 +7,7 @@ print(s)
 f.close()
 
 # Writing
-f = open("dontwant.txt","w")
+f = open("dontwant.txt", "w")
 f.write("Some Line\n")
 f.write("More Lines\n")
 f.close()
